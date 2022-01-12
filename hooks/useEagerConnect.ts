@@ -18,6 +18,7 @@ export function useEagerConnect() {
         setTried(true);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
