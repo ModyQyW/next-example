@@ -133,7 +133,6 @@ const Home: NextPage = memo(() => {
             )}
             {!error && active && (
               <Grid container justifyContent="center" alignItems="center" flexDirection="column">
-                <Typography variant="body1">Wallet: {wallet}</Typography>
                 <Typography variant="body1">Chain Id: {formatChainId(chainId)}</Typography>
                 <Typography variant="body1">
                   Block Number: {formatBlockNumber(blockNumber)}
