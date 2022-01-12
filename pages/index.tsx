@@ -1,71 +1,155 @@
 import type { NextPage } from 'next';
-import { memo } from 'react';
-import Image from 'next/image';
-import styles from '@/styles/Home.module.css';
-import { Container } from '@mui/material';
+import { memo, useState, useEffect } from 'react';
+import {
+  Container,
+  Box,
+  Grid,
+  Typography,
+  RadioGroup,
+  Radio,
+  FormControl,
+  FormControlLabel,
+} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { useWeb3React } from '@web3-react/core';
+import { Connector } from '@/constants';
+import { useBalance, useBlockNumber, useEagerConnect, useInactiveListener } from '@/hooks';
+import {
+  formatAccount,
+  formatBalance,
+  formatBlockNumber,
+  formatChainId,
+  formatErrorMessage,
+  resetWalletConnectProvider,
+} from '@/utils';
+import { CloudQueue as CloudQueueIcon, CloudOff as CloudOffIcon } from '@mui/icons-material';
+import { MetaMaskIcon, WalletConnectIcon } from '@/assets/icons';
 
-const Home: NextPage = memo(() => (
-  <Container
-    maxWidth={false}
-    disableGutters
-    sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
-  >
-    <main className="flex flex-auto flex-col items-center justify-center">
-      <h1 className="m-0 text-[4rem] text-center">
-        Welcome to{' '}
-        <a
-          className="text-[#0070f3] no-underline hover:underline focus:underline active:underline"
-          href="https://nextjs.org"
-        >
-          Next.js!
-        </a>
-      </h1>
+const Home: NextPage = memo(() => {
+  const [wallet, setWallet] = useState<TWallet>('MetaMask');
 
-      <p className="text-center my-16 text-[1.5rem] leading-normal">
-        Get started by editing{' '}
-        <code className="p-3 font-mono text-[1.1rem] bg-[#fafafa] rounded">pages/index.tsx</code>
-      </p>
+  const [isActivating, setIsActivating] = useState(false);
 
-      <div className="flex flex-wrap items-center justify-center max-w-[800px]">
-        <a href="https://nextjs.org/docs" className={styles.card}>
-          <h2>Documentation &rarr;</h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  const { connector, chainId, account, active, error, activate, deactivate } = useWeb3React();
+  const balance = useBalance();
+  const blockNumber = useBlockNumber();
+  useEffect(() => {
+    if (error) {
+      Connector[wallet].deactivate();
+    }
+  }, [error, wallet]);
 
-        <a href="https://nextjs.org/learn" className={styles.card}>
-          <h2>Learn &rarr;</h2>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
+  const [activatingConnector, setActivatingConnector] = useState<any>();
+  useEffect(() => {
+    if (activatingConnector && activatingConnector === connector) {
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setActivatingConnector(undefined);
+    }
+  }, [activatingConnector, connector]);
+  const triedEager = useEagerConnect();
+  useInactiveListener(!triedEager || !!activatingConnector);
 
-        <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-          <h2>Examples &rarr;</h2>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
+  const activateConnector = async () => {
+    setIsActivating(true);
+    // https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-984882534
+    await activate(Connector[wallet], () => {
+      resetWalletConnectProvider();
+    }).finally(() => {
+      setIsActivating(false);
+    });
+  };
+  const deactivateConnector = () => deactivate();
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className={styles.card}
-        >
-          <h2>Deploy &rarr;</h2>
-          <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-        </a>
-      </div>
-    </main>
+  const toggleConnectorStatus = () => {
+    if (active) {
+      deactivateConnector();
+      return;
+    }
+    activateConnector();
+  };
 
-    <footer className="flex flex-none items-center justify-center py-4 border-0 border-t border-solid border-[#eaeaea]">
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex flex-grow items-center justify-center"
-      >
-        Powered by{' '}
-        <span className="h-[1em] ml-2">
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </span>
-      </a>
-    </footer>
-  </Container>
-));
+  return (
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+    >
+      <Box component="header" className="flex items-center justify-center flex-none">
+        Header here.
+      </Box>
+      <Box component="main" className="flex flex-col items-center justify-center flex-auto">
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={12}>
+            <Grid container justifyContent="center" alignItems="center">
+              <FormControl component="fieldset" sx={{ flexDirection: 'row' }}>
+                <RadioGroup
+                  row
+                  aria-label="wallet"
+                  name="wallet-group"
+                  value={wallet}
+                  onChange={(event) => {
+                    setWallet(event.target.value as TWallet);
+                  }}
+                >
+                  <FormControlLabel
+                    value="MetaMask"
+                    disabled={active}
+                    control={<Radio />}
+                    label={
+                      <Box className="flex items-center justify-center">
+                        <MetaMaskIcon className="mr-1" />
+                        MetaMask
+                      </Box>
+                    }
+                  />
+                  <FormControlLabel
+                    value="WalletConnect"
+                    disabled={active}
+                    control={<Radio />}
+                    label={
+                      <Box className="flex items-center justify-center">
+                        <WalletConnectIcon className="mr-1" />
+                        WalletConnect
+                      </Box>
+                    }
+                  />
+                </RadioGroup>
+                <LoadingButton
+                  loading={isActivating}
+                  variant="contained"
+                  onClick={toggleConnectorStatus}
+                  startIcon={active ? <CloudOffIcon /> : <CloudQueueIcon />}
+                >
+                  {active ? 'Disconnect' : 'Connect'}
+                </LoadingButton>
+              </FormControl>
+            </Grid>
+            {!!error && (
+              <Grid container justifyContent="center" alignItems="center">
+                <Typography variant="body1" className="text-red-600">
+                  {formatErrorMessage(error)}
+                </Typography>
+              </Grid>
+            )}
+            {!error && active && (
+              <Grid container justifyContent="center" alignItems="center" flexDirection="column">
+                <Typography variant="body1">Wallet: {wallet}</Typography>
+                <Typography variant="body1">Chain Id: {formatChainId(chainId)}</Typography>
+                <Typography variant="body1">
+                  Block Number: {formatBlockNumber(blockNumber)}
+                </Typography>
+                <Typography variant="body1">Account: {formatAccount(account)}</Typography>
+                <Typography variant="body1">Balance: {formatBalance(balance)}</Typography>
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+      </Box>
+      <Box component="footer" className="flex items-center justify-center flex-none">
+        Footer here.
+      </Box>
+    </Container>
+  );
+});
 
 export default Home;

@@ -7,10 +7,12 @@ import '@/styles/globals.css';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import pkg from '@/package.json';
+import { Web3ReactProvider } from '@web3-react/core';
+import { getLibrary } from '@/utils';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Web3ReactProvider getLibrary={getLibrary}>
       <Head>
         <meta name="renderer" content="webkit" />
         <meta name="force-rendering" content="webkit" />
@@ -24,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <CssBaseline />
       <Component {...pageProps} />
-    </>
+    </Web3ReactProvider>
   );
 }
 
