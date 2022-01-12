@@ -1,6 +1,11 @@
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 
+// 1 mainnet
+// 3 repsten
+// 4 rinkeby
+// 5 goerli
+// 42 kovan
 export const ChainIds = [1, 3, 4, 5, 42];
 
 const injectedConnector = new InjectedConnector({
@@ -9,13 +14,7 @@ const injectedConnector = new InjectedConnector({
 export { injectedConnector as InjectedConnector };
 
 const walletConnectConnector = new WalletConnectConnector({
-  // rpc: {
-  //   1: 'a link with a infuraId, using process.env may be a good choice',
-  //   3: 'a link with a infuraId, using process.env may be a good choice',
-  //   4: 'a link with a infuraId, using process.env may be a good choice',
-  //   5: 'a link with a infuraId, using process.env may be a good choice',
-  //   42: 'a link with a infuraId, using process.env may be a good choice',
-  // },
+  infuraId: process.env.InfuraId || 'd5e2d1fa6d474634bb9f4dbcf5b36b34',
   supportedChainIds: ChainIds,
 });
 export { walletConnectConnector as WalletConnectConnector };
