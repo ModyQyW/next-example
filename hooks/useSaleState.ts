@@ -6,15 +6,23 @@ export function useSaleState() {
   const [saleState, setSaleState] = useState<number | undefined | null>();
 
   useEffect(() => {
-    try {
+    // eslint-disable-next-line no-underscore-dangle
+    if (contract?._config) {
       // eslint-disable-next-line no-underscore-dangle
-      contract?._config().then((response: any) => {
-        setSaleState(response.saleState);
-      });
-    } catch (error) {
-      // TODO
-      console.error('error', error);
+      contract
+        ._config()
+        .then((response: any) => {
+          setSaleState(response.saleState);
+        })
+        .catch(() => {
+          setSaleState(null);
+        });
     }
+
+    return () => {
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setSaleState(undefined);
+    };
   }, [contract]);
 
   return saleState;

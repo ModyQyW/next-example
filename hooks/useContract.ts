@@ -4,19 +4,21 @@ import { Contract } from '@ethersproject/contracts';
 import { ABI } from '@/constants';
 
 export function useContract() {
-  const [contract, setContract] = useState<Contract | undefined | null>();
   const { library, active, chainId } = useWeb3React();
+
+  const [contract, setContract] = useState<Contract | undefined | null>();
 
   useEffect(() => {
     if (active && chainId && library?.getSigner()) {
-      const signer = library.getSigner();
-      const newContract = new Contract(
-        process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string,
-        ABI,
-        signer,
+      setContract(
+        new Contract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string, ABI, library.getSigner()),
       );
-      setContract(newContract);
     }
+
+    return () => {
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setContract(undefined);
+    };
   }, [library, active, chainId]);
 
   return contract;
