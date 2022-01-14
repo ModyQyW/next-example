@@ -26,7 +26,6 @@
     "@ethersproject/contracts": "~5.5.0",
     "@ethersproject/providers": "~5.5.2",
     "@ethersproject/units": "~5.5.0",
-    "@ethersproject/wallet": "~5.5.0",
     "@fontsource/roboto": "~4.5.1",
     "@mui/icons-material": "~5.2.5",
     "@mui/lab": "~5.0.0-alpha.64",
