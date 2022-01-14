@@ -13,17 +13,30 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { useWeb3React } from '@web3-react/core';
 import { Connector } from '@/constants';
-import { useBalance, useBlockNumber, useEagerConnect, useInactiveListener } from '@/hooks';
+import {
+  useBalance,
+  useBlockNumber,
+  useContract,
+  useEagerConnect,
+  useInactiveListener,
+  useSaleState,
+} from '@/hooks';
 import {
   formatAccount,
   formatBalance,
   formatBlockNumber,
   formatChainId,
   formatErrorMessage,
+  formatSaleState,
   resetWalletConnectProvider,
 } from '@/utils';
-import { CloudQueue as CloudQueueIcon, CloudOff as CloudOffIcon } from '@mui/icons-material';
+import {
+  CloudQueue as CloudQueueIcon,
+  CloudOff as CloudOffIcon,
+  LocalFireDepartment as LocalFireDepartmentIcon,
+} from '@mui/icons-material';
 import { MetaMaskIcon, WalletConnectIcon } from '@/assets/icons';
+import { parseEther } from '@ethersproject/units';
 
 const Home: NextPage = memo(() => {
   const [wallet, setWallet] = useState<TWallet>('MetaMask');
@@ -33,11 +46,6 @@ const Home: NextPage = memo(() => {
   const { connector, chainId, account, active, error, activate, deactivate } = useWeb3React();
   const balance = useBalance();
   const blockNumber = useBlockNumber();
-  useEffect(() => {
-    if (error) {
-      Connector[wallet].deactivate();
-    }
-  }, [error, wallet]);
 
   const [activatingConnector, setActivatingConnector] = useState<any>();
   useEffect(() => {
@@ -66,6 +74,32 @@ const Home: NextPage = memo(() => {
       return;
     }
     activateConnector();
+  };
+
+  const contract = useContract();
+  const saleState = useSaleState();
+  const [isSqeezing, setIsSqeezing] = useState(false);
+  const [sqeezeResponse, setSqeezeResponse] = useState<any>();
+  const [sqeezeError, setSqeezeError] = useState<any>();
+  const sqeeze = () => {
+    if (contract) {
+      setIsSqeezing(true);
+      contract
+        .sqeezePigmentTube(1, { value: parseEther('0.11') })
+        .then((newResponse: any) => {
+          // TODO
+          console.log('response', newResponse);
+          setSqeezeResponse(newResponse);
+        })
+        .catch((newError: any) => {
+          // TODO
+          console.error('error', newError);
+          setSqeezeError(newError);
+        })
+        .finally(() => {
+          setIsSqeezing(false);
+        });
+    }
   };
 
   return (
@@ -139,6 +173,25 @@ const Home: NextPage = memo(() => {
                 </Typography>
                 <Typography variant="body1">Account: {formatAccount(account)}</Typography>
                 <Typography variant="body1">Balance: {formatBalance(balance)}</Typography>
+                <Typography variant="body1">Sale State: {formatSaleState(saleState)}</Typography>
+                {contract && saleState === 1 && (
+                  <LoadingButton
+                    loading={isSqeezing}
+                    variant="contained"
+                    onClick={sqeeze}
+                    startIcon={<LocalFireDepartmentIcon />}
+                  >
+                    Sqeeze Pigment Tube
+                  </LoadingButton>
+                )}
+                {sqeezeResponse && (
+                  <Typography variant="body1">Response: {sqeezeResponse}</Typography>
+                )}
+                {sqeezeError && (
+                  <Typography variant="body1" className="text-red-600">
+                    Error: {sqeezeError?.message ?? sqeezeError}
+                  </Typography>
+                )}
               </Grid>
             )}
           </Grid>
