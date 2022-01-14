@@ -6,11 +6,7 @@
 `.env.local` 如下。
 
 ```sh
-NEXT_PUBLIC_ETHERSCAN_API_KEY=**********************************
 NEXT_PUBLIC_INFURA_PROJECT_ID=********************************
-NEXT_PUBLIC_ALCHEMY_KEY=********************************
-NEXT_PUBLIC_POCKET_PORTAL_ID=************************
-NEXT_PUBLIC_WALLET_PRIVATE_KEY=******************************************
 NEXT_PUBLIC_CONTRACT_ADDRESS=******************************************
 
 ```
