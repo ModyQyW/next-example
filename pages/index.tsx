@@ -99,12 +99,16 @@ const Home: NextPage = memo(() => {
             })
             .catch((newError: any) => {
               console.error('error', newError);
+              // eslint-disable-next-line unicorn/no-useless-undefined
+              setSqeezeResponse(undefined);
               setSqeezeError(newError);
             });
         })
         .catch((newError: any) => {
           // TODO
           console.error('error', newError);
+          // eslint-disable-next-line unicorn/no-useless-undefined
+          setSqeezeResponse(undefined);
           setSqeezeError(newError);
         })
         .finally(() => {
@@ -211,12 +215,12 @@ const Home: NextPage = memo(() => {
                   </>
                 )}
                 {sqeezeResponse && (
-                  <Typography variant="body1">
+                  <Typography variant="body1" className="mx-4 break-all">
                     Response: {JSON.stringify(sqeezeResponse)}
                   </Typography>
                 )}
-                {sqeezeError && (
-                  <Typography variant="body1" className="text-red-600">
+                {!sqeezeResponse && sqeezeError && (
+                  <Typography variant="body1" className="text-red-600 break-all">
                     Error: {sqeezeError?.message ?? sqeezeError}
                   </Typography>
                 )}
