@@ -7,6 +7,5 @@
 
 ```sh
 NEXT_PUBLIC_INFURA_PROJECT_ID=********************************
-NEXT_PUBLIC_CONTRACT_ADDRESS=******************************************
 
 ```

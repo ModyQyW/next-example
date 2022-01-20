@@ -11,7 +11,7 @@ export function useContract() {
   useEffect(() => {
     if (active && chainId && library?.getSigner()) {
       setContract(
-        new Contract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string, ABI, library.getSigner()),
+        new Contract('0x179bEEC76f1af3DE20b9F38AD0E33ad06164bb0C', ABI, library.getSigner()),
       );
     }
 
