@@ -86,10 +86,19 @@ const Home: NextPage = memo(() => {
       setIsSqeezing(true);
       contract
         .sqeezePigmentTube(1, { value: parseEther('0.11') })
-        .then((newResponse: any) => {
+        .then((result: any) => {
           // TODO
-          console.log('response', newResponse);
-          setSqeezeResponse(newResponse);
+          console.log('result', result);
+          result
+            .wait()
+            .then((response: any) => {
+              console.log('response', response);
+              setSqeezeResponse(response);
+            })
+            .catch((newError: any) => {
+              console.error('error', newError);
+              setSqeezeError(newError);
+            });
         })
         .catch((newError: any) => {
           // TODO
@@ -185,7 +194,9 @@ const Home: NextPage = memo(() => {
                   </LoadingButton>
                 )}
                 {sqeezeResponse && (
-                  <Typography variant="body1">Response: {sqeezeResponse}</Typography>
+                  <Typography variant="body1">
+                    Response: {JSON.stringify(sqeezeResponse)}
+                  </Typography>
                 )}
                 {sqeezeError && (
                   <Typography variant="body1" className="text-red-600">
