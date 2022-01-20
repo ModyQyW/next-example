@@ -9,6 +9,7 @@ import {
   Radio,
   FormControl,
   FormControlLabel,
+  TextField,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useWeb3React } from '@web3-react/core';
@@ -78,6 +79,7 @@ const Home: NextPage = memo(() => {
 
   const contract = useContract();
   const saleState = useSaleState();
+  const [count, setCount] = useState(1);
   const [isSqeezing, setIsSqeezing] = useState(false);
   const [sqeezeResponse, setSqeezeResponse] = useState<any>();
   const [sqeezeError, setSqeezeError] = useState<any>();
@@ -85,7 +87,7 @@ const Home: NextPage = memo(() => {
     if (contract) {
       setIsSqeezing(true);
       contract
-        .sqeezePigmentTube(1, { value: parseEther('0.11') })
+        .sqeezePigmentTube(count, { value: parseEther((0.055 * count).toString()) })
         .then((result: any) => {
           // TODO
           console.log('result', result);
@@ -184,14 +186,29 @@ const Home: NextPage = memo(() => {
                 <Typography variant="body1">Balance: {formatBalance(balance)}</Typography>
                 <Typography variant="body1">Sale State: {formatSaleState(saleState)}</Typography>
                 {contract && saleState === 1 && (
-                  <LoadingButton
-                    loading={isSqeezing}
-                    variant="contained"
-                    onClick={sqeeze}
-                    startIcon={<LocalFireDepartmentIcon />}
-                  >
-                    Sqeeze Pigment Tube
-                  </LoadingButton>
+                  <>
+                    <TextField
+                      label="Count"
+                      value={count}
+                      inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                      onChange={(event) => {
+                        setCount(
+                          Number.isNaN(Number.parseInt(event.target.value, 10))
+                            ? 0
+                            : Number.parseInt(event.target.value, 10),
+                        );
+                      }}
+                      className="mt-4"
+                    />
+                    <LoadingButton
+                      loading={isSqeezing}
+                      variant="contained"
+                      onClick={sqeeze}
+                      startIcon={<LocalFireDepartmentIcon />}
+                    >
+                      Sqeeze Pigment Tube
+                    </LoadingButton>
+                  </>
                 )}
                 {sqeezeResponse && (
                   <Typography variant="body1">
