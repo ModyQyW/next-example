@@ -1,45 +1,45 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@babel/core': ~7.16.12
-  '@babel/eslint-parser': ~7.16.5
-  '@commitlint/cli': ~16.1.0
-  '@emotion/react': ~11.7.1
-  '@emotion/styled': ~11.6.0
-  '@ethersproject/bignumber': ~5.5.0
-  '@ethersproject/contracts': ~5.5.0
-  '@ethersproject/providers': ~5.5.2
-  '@ethersproject/units': ~5.5.0
-  '@fontsource/roboto': ~4.5.1
-  '@modyqyw/fabric': ~4.8.0
-  '@mui/icons-material': ~5.3.1
-  '@mui/lab': ~5.0.0-alpha.66
-  '@mui/material': ~5.3.1
-  '@types/react': ~17.0.38
-  '@typescript-eslint/eslint-plugin': ~5.10.1
-  '@typescript-eslint/parser': ~5.10.1
-  '@web3-react/core': ~6.1.9
-  '@web3-react/frame-connector': ~6.0.9
-  '@web3-react/injected-connector': ~6.0.7
-  '@web3-react/walletconnect-connector': 6.2.10
-  commitizen: ~4.2.4
-  eslint: ~8.7.0
-  ethereum-waffle: ~3.4.0
-  husky: ~7.0.4
-  is-ci: ~3.0.1
-  lint-staged: ~12.3.1
-  markdownlint-cli: ~0.30.0
-  next: ~12.0.8
-  postcss: ~8.4.5
-  postcss-flexbugs-fixes: ~5.0.2
-  postcss-preset-env: ~7.2.3
-  prettier: ~2.5.1
-  react: ~17.0.2
-  react-dom: ~17.0.2
-  release-it: ~14.12.4
-  stylelint: ~14.3.0
-  tailwindcss: ~3.0.16
-  typescript: ~4.5.5
+  '@babel/core': 7.16.12
+  '@babel/eslint-parser': 7.16.5
+  '@commitlint/cli': 16.1.0
+  '@emotion/react': 11.7.1
+  '@emotion/styled': 11.6.0
+  '@ethersproject/bignumber': 5.5.0
+  '@ethersproject/contracts': 5.5.0
+  '@ethersproject/providers': 5.5.2
+  '@ethersproject/units': 5.5.0
+  '@fontsource/roboto': 4.5.1
+  '@modyqyw/fabric': 4.8.0
+  '@mui/icons-material': 5.3.1
+  '@mui/lab': 5.0.0-alpha.66
+  '@mui/material': 5.3.1
+  '@types/react': 17.0.38
+  '@typescript-eslint/eslint-plugin': 5.10.1
+  '@typescript-eslint/parser': 5.10.1
+  '@web3-react/core': 6.1.9
+  '@web3-react/frame-connector': 6.0.9
+  '@web3-react/injected-connector': 6.0.7
+  '@web3-react/walletconnect-connector': 6.2.8
+  commitizen: 4.2.4
+  eslint: 8.7.0
+  ethereum-waffle: 3.4.0
+  husky: 7.0.4
+  is-ci: 3.0.1
+  lint-staged: 12.3.1
+  markdownlint-cli: 0.30.0
+  next: 12.0.8
+  postcss: 8.4.5
+  postcss-flexbugs-fixes: 5.0.2
+  postcss-preset-env: 7.2.3
+  prettier: 2.5.1
+  react: 17.0.2
+  react-dom: 17.0.2
+  release-it: 14.12.4
+  stylelint: 14.3.0
+  tailwindcss: 3.0.16
+  typescript: 4.5.5
 
 dependencies:
   '@emotion/react': 11.7.1_91de5bc04873a2ecfed8879f8166219d
@@ -55,7 +55,7 @@ dependencies:
   '@web3-react/core': 6.1.9_react@17.0.2
   '@web3-react/frame-connector': 6.0.9
   '@web3-react/injected-connector': 6.0.7
-  '@web3-react/walletconnect-connector': 6.2.10
+  '@web3-react/walletconnect-connector': 6.2.8
   next: 12.0.8_11ff11544d2bce3b43fc9d53812dafa4
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -2429,11 +2429,10 @@ packages:
     resolution: {integrity: sha512-ofGmfDhxmNT1/P/MgVa8IKSkCStFiyvXe+U5tyZurKdrtTDFU+wJ/LxClPDtFerWpczNFPUSrKcuhfPX1sI6+A==}
     dev: false
 
-  /@web3-react/walletconnect-connector/6.2.10:
-    resolution: {integrity: sha512-168/PwhMs1qL+PTNx66hb3MpJchWlw4RauLWHLDYYFcwmwn1kAg216p1o6m27XXjM0Kkmu1xc/0lUm2Z8DjC5g==}
+  /@web3-react/walletconnect-connector/6.2.8:
+    resolution: {integrity: sha512-HENFuGw+inlYHPdZc1vKKVVYzJ/h/JJIXZVzXC2UPQ+c14cX1t0WSnQ7ywUYHkgRqYWMsngTDZTKRMU2+4O1Tg==}
     dependencies:
       '@walletconnect/ethereum-provider': 1.7.1
-      '@walletconnect/types': 1.7.1
       '@web3-react/abstract-connector': 6.0.7
       '@web3-react/types': 6.0.7
       tiny-invariant: 1.2.0
@@ -3571,7 +3570,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001298
+      caniuse-lite: 1.0.30001299
       electron-to-chromium: 1.4.41
       escalade: 3.1.1
       node-releases: 2.0.1
@@ -3760,12 +3759,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001298:
-    resolution: {integrity: sha512-AcKqikjMLlvghZL/vfTHorlQsLDhGRalYf1+GmWCf5SCMziSGjRYQW/JEksj14NaYHIR6KIhrFAy0HV5C25UzQ==}
-
   /caniuse-lite/1.0.30001299:
     resolution: {integrity: sha512-iujN4+x7QzqA2NCSrS5VUy+4gLmRd4xv6vbBBsmfVqTx8bLAD8097euLqQgKxSVLvxjSDcvF1T/i9ocgnUFexw==}
-    dev: true
 
   /caseless/0.12.0:
     resolution: {integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=}
@@ -4398,7 +4393,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /css-has-pseudo/3.0.3_postcss@8.4.5:
@@ -4409,7 +4404,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /css-prefers-color-scheme/6.0.2_postcss@8.4.5:
@@ -6397,6 +6392,7 @@ packages:
   /ganache-core/2.13.2:
     resolution: {integrity: sha512-tIF5cR+ANQz0+3pHWxHjIwHqFXcVo0Mb+kcsNhglNFALcYo49aQpnS9dqHartqPfMFjiHh/qFoD3mYK0d/qGgw==}
     engines: {node: '>=8.9.0'}
+    deprecated: ganache-core is now ganache; visit https://trfl.io/g7 for details
     dependencies:
       abstract-leveldown: 3.0.0
       async: 2.6.2
@@ -8673,7 +8669,7 @@ packages:
     dependencies:
       '@next/env': 12.0.8
       '@next/react-refresh-utils': 12.0.8_react-refresh@0.8.3
-      caniuse-lite: 1.0.30001298
+      caniuse-lite: 1.0.30001299
       jest-worker: 27.0.0-next.5
       node-fetch: 2.6.1
       postcss: 8.2.15
@@ -9331,7 +9327,7 @@ packages:
       postcss: ^8.0.2
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-color-functional-notation/4.2.1_postcss@8.4.5:
@@ -9390,7 +9386,7 @@ packages:
       postcss: ^8.1.2
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-dir-pseudo-class/6.0.3_postcss@8.4.5:
@@ -9400,7 +9396,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-double-position-gradients/3.0.4_postcss@8.4.5:
@@ -9438,7 +9434,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-focus-within/5.0.3_postcss@8.4.5:
@@ -9448,7 +9444,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-font-variant/5.0.0_postcss@8.4.5:
@@ -9576,7 +9572,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-overflow-shorthand/3.0.2_postcss@8.4.5:
@@ -9655,7 +9651,7 @@ packages:
       postcss: ^8.3
     dependencies:
       postcss: 8.4.5
-      postcss-selector-parser: 6.0.8
+      postcss-selector-parser: 6.0.9
     dev: true
 
   /postcss-replace-overflow-wrap/4.0.0_postcss@8.4.5:
@@ -9695,14 +9691,6 @@ packages:
     dependencies:
       balanced-match: 1.0.2
       postcss: 8.4.5
-    dev: true
-
-  /postcss-selector-parser/6.0.8:
-    resolution: {integrity: sha512-D5PG53d209Z1Uhcc0qAZ5U3t5HagH3cxu+WLZ22jt3gLUpXM4eXXfiO14jiDWST3NNooX/E8wISfOhZ9eIjGTQ==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
     dev: true
 
   /postcss-selector-parser/6.0.9:
