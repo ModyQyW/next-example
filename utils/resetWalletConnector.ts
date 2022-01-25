@@ -2,5 +2,7 @@
 import { Connector } from '@/constants';
 
 export const resetWalletConnectProvider = () => {
-  Connector.WalletConnect.walletConnectProvider = undefined;
+  if (Connector?.WalletConnect?.walletConnectProvider) {
+    Connector.WalletConnect.walletConnectProvider = undefined;
+  }
 };
